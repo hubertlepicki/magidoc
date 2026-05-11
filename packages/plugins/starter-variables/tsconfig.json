@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "moduleResolution": "bundler",
     "useDefineForClassFields": true,
     "verbatimModuleSyntax": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
