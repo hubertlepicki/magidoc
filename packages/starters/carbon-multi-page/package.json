@@ -30,7 +30,6 @@
     "@sveltejs/kit": "2.59.1",
     "@sveltejs/vite-plugin-svelte": "7.1.2",
     "@types/lodash": "4.17.24",
-    "@types/marked": "6.0.0",
     "@types/prismjs": "1.26.6",
     "carbon-components-svelte": "0.107.1",
     "carbon-icons-svelte": "13.11.0",
@@ -54,5 +53,11 @@
   },
   "dependencies": {
     "github-slugger": "2.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "carbon-components-svelte",
+      "esbuild"
+    ]
   }
 }
