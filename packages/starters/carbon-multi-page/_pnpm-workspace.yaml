@@ -1,0 +1,3 @@
+allowBuilds:
+  - carbon-components-svelte
+  - esbuild

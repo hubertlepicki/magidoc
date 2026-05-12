@@ -83,10 +83,16 @@ async function zipStarter(starterDirectory) {
     dot: true,
     cwd: starterDirectory,
     // Exclude package.json because we are going to modify it
-    ignore: excludedPatterns.concat(['package.json']),
+    // Exclude _pnpm-workspace.yaml because we are going to rename it
+    ignore: excludedPatterns.concat(['package.json', '_pnpm-workspace.yaml']),
   })
 
   archive.append(getCleanedPackageJson(path.join(starterDirectory, 'package.json')), { name: 'package.json' })
+
+  const pnpmWorkspacePath = path.join(starterDirectory, '_pnpm-workspace.yaml')
+  if (fs.existsSync(pnpmWorkspacePath)) {
+    archive.file(pnpmWorkspacePath, { name: 'pnpm-workspace.yaml' })
+  }
 
   await archive.finalize()
 }

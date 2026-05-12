@@ -1,6 +1,6 @@
 {
   "name": "@magidoc/starter-carbon-multi-page",
-  "version": "6.4.1",
+  "version": "6.4.2",
   "license": "MIT",
   "type": "module",
   "keywords": [
@@ -53,11 +53,5 @@
   },
   "dependencies": {
     "github-slugger": "2.0.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "carbon-components-svelte",
-      "esbuild"
-    ]
   }
 }
