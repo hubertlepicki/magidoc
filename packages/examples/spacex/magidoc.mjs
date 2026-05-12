@@ -18,8 +18,8 @@ function relativePath(target) {
 
 export default {
   introspection: {
-    type: 'url',
-    url: 'https://spacex-production.up.railway.app/graphql',
+    type: 'sdl',
+    paths: [relativePath('./schema.graphqls')],
   },
   website: {
     template: 'carbon-multi-page',
