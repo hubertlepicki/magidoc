@@ -1,4 +1,4 @@
-import archiver from 'archiver'
+import { ZipArchive } from 'archiver'
 import fs from 'fs'
 import path from 'path'
 import url from 'url'
@@ -56,7 +56,7 @@ async function zipStarter(starterDirectory) {
   fs.rmSync(outputPath, { force: true })
 
   const output = fs.createWriteStream(outputPath)
-  const archive = archiver('zip', {
+  const archive = new ZipArchive('zip', {
     zlib: { level: 9 }, // 1 = best speed, 9 = best compression
   })
 
