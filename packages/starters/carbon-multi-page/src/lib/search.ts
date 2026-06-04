@@ -117,25 +117,22 @@ function mergeResults(
   return [...first, ...second].sort((a, b) => a.score - b.score).slice(0, 10)
 }
 
-function collapseIndexes(indexes: ReadonlyArray<ResultRange>): ReadonlyArray<ResultRange> {
-  const result: ResultRange[] = []
-  let current: ResultRange = [0, 0]
-  const openings = new Set(indexes.map(([start]) => start))
-  const closings = new Set(indexes.map(([, end]) => end))
-  const min = Math.min(...indexes.map(([start]) => start))
-  const max = Math.max(...indexes.map(([, end]) => end))
-  let open = false
-  for (let i = min; i <= max; i++) {
-    if (openings.has(i) && !open) {
-      open = true
-      current = [i, 0]
-    } else if (closings.has(i) && open) {
-      open = false
-      current[1] = i
-      result.push(current)
+export function collapseIndexes(indexes: ReadonlyArray<ResultRange>): ReadonlyArray<ResultRange> {
+  const sorted = [...indexes].sort((a, b) => a[0] - b[0])
+  const merged: ResultRange[] = []
+  for (const range of sorted) {
+    if (merged.length === 0) {
+      merged.push([range[0], range[1]])
+    } else {
+      const last = merged[merged.length - 1]
+      if (range[0] <= last[1] + 1) {
+        last[1] = Math.max(last[1], range[1])
+      } else {
+        merged.push([range[0], range[1]])
+      }
     }
   }
-  return result
+  return merged
 }
 
 function flatPages(pages: ReadonlyArray<PageTree>): Page[] {

@@ -9,7 +9,7 @@ export let item: MagidocSearchResult
 {#if item.type === 'markdown'}
   <AppMarkdownSearchResult
     result={item.result}
-    indexes={item.matches[0].indices}
+    indexes={item.matches[0]?.indices ?? []}
     on:click
   />
 {:else if item.type === 'graphql'}

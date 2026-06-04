@@ -13,7 +13,7 @@
     "dev": "vite dev",
     "build": "svelte-kit sync && vite build",
     "preview": "vite preview",
-    "test": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "svelte-check --tsconfig ./tsconfig.json && vitest run",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
@@ -46,7 +46,8 @@
     "svelte-markdown": "0.4.1",
     "tslib": "2.8.1",
     "typescript": "6.0.3",
-    "vite": "8.0.12"
+    "vite": "8.0.12",
+    "vitest": "4.1.6"
   },
   "engines": {
     "node": ">=20"

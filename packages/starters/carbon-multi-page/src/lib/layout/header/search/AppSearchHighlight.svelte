@@ -8,10 +8,11 @@ let croppedText: string
 let croppedIndexes: ReadonlyArray<[number, number]>
 let croppedHtml: string
 
-$: minIndex = Math.min(...indexes.map((index) => index[0]))
-$: maxIndex = Math.max(...indexes.map((index) => index[1]))
-$: cropMinIndex = Math.max(minIndex - cropOffset, 0)
-$: cropMaxIndex = Math.min(maxIndex + cropOffset + 1, text.length)
+$: minIndex = indexes.length > 0 ? Math.min(...indexes.map((index) => index[0])) : 0
+$: maxIndex = indexes.length > 0 ? Math.max(...indexes.map((index) => index[1])) : 0
+$: cropMinIndex = indexes.length > 0 ? Math.max(minIndex - cropOffset, 0) : 0
+$: cropMaxIndex =
+  indexes.length > 0 ? Math.min(maxIndex + cropOffset + 1, text.length) : Math.min(cropOffset * 2, text.length)
 $: {
   croppedText = text.slice(cropMinIndex, cropMaxIndex)
   croppedIndexes = indexes.map(([start, end]) => [start - cropMinIndex, end - cropMinIndex])

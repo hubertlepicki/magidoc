@@ -11,7 +11,7 @@ export let item: GraphQLSearchResult
 
 let href: string
 let section: string
-let location: string
+let location: string | undefined
 
 $: {
   if (item.result.type === SearchResultType.QUERY) {
@@ -30,16 +30,23 @@ $: {
 }
 
 $: {
-  if (item.matches[0].location.includes('arguments')) {
-    location = 'argument'
-  } else if (item.matches[0].location.includes('fields')) {
-    location = 'field'
-  } else if (item.matches[0].location.includes('value')) {
-    location = 'enum'
-  } else if (item.matches[0].location.includes('name')) {
-    location = 'name'
-  } else if (item.matches[0].location.includes('description')) {
-    location = 'description'
+  const match = item.matches[0]
+  if (match) {
+    if (match.location.includes('arguments')) {
+      location = 'argument'
+    } else if (match.location.includes('fields')) {
+      location = 'field'
+    } else if (match.location.includes('value')) {
+      location = 'enum'
+    } else if (match.location.includes('name')) {
+      location = 'name'
+    } else if (match.location.includes('description')) {
+      location = 'description'
+    } else {
+      location = undefined
+    }
+  } else {
+    location = undefined
   }
 }
 </script>
@@ -55,7 +62,7 @@ $: {
 
   <br />
   <AppSearchHighlight
-    text={item.matches[0].value}
-    indexes={item.matches[0].indices}
+    text={item.matches[0]?.value ?? item.result.name}
+    indexes={item.matches[0]?.indices ?? []}
   />
 </ClickableTile>
