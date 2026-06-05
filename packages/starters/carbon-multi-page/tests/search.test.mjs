@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
-import { after, test } from 'node:test'
 import path from 'node:path'
+import { after, test } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { createServer } from 'vite'
 
@@ -78,12 +78,7 @@ test('search returns displayable markdown matches for a complete query', () => {
   assert.ok(Array.isArray(results[0].matches[0].indices))
 })
 
-test('search keeps markdown results renderable before the user enters a query', () => {
-  const results = search('')
-
-  assert.doesNotThrow(() => {
-    for (const result of results) {
-      result.matches[0].indices
-    }
-  })
+test('search returns no results before the user enters a query', () => {
+  assert.deepEqual(search(''), [])
+  assert.deepEqual(search('   '), [])
 })
